@@ -3921,25 +3921,21 @@
         }
     }
     function resizableSwiper(breakpoint, swiperClass, swiperSettings) {
-        let swiper = null;
+        let swiper;
         const filterButtons = document.querySelectorAll(".filters-special__button");
         const slides = document.querySelectorAll(".card-special");
-        const slider = document.querySelector(".slider-special");
-        const noMatchesMessage = document.querySelector(".slider-special__message");
         breakpoint = window.matchMedia(breakpoint);
         const enableSwiper = function(className, settings) {
-            if (!swiper) swiper = new swiper_core_Swiper(className, settings);
+            swiper = new swiper_core_Swiper(className, settings);
         };
         const checker = function() {
-            if (breakpoint.matches) enableSwiper(swiperClass, swiperSettings); else if (swiper) {
-                swiper.destroy(true, true);
-                swiper = null;
-            }
+            if (breakpoint.matches) enableSwiper(swiperClass, swiperSettings); else if (swiper) swiper.destroy(true, true);
         };
         breakpoint.addEventListener("change", checker);
         checker();
         function filterSlides(category) {
-            if (!swiper) return;
+            const slider = document.querySelector(".slider-special");
+            const noMatchesMessage = document.querySelector(".slider-special__message");
             slider.classList.add("loading");
             let isMatchFound = false;
             slides.forEach((slide => {
@@ -3950,7 +3946,7 @@
                 } else slide.style.display = "none";
             }));
             noMatchesMessage.style.display = isMatchFound ? "none" : "block";
-            swiper.update();
+            if (swiper) swiper.update();
             setTimeout((() => {
                 slider.classList.remove("loading");
             }), 300);
