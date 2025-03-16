@@ -3921,21 +3921,25 @@
         }
     }
     function resizableSwiper(breakpoint, swiperClass, swiperSettings) {
-        let swiper;
+        let swiper = null;
         const filterButtons = document.querySelectorAll(".filters-special__button");
         const slides = document.querySelectorAll(".card-special");
+        const slider = document.querySelector(".slider-special");
+        const noMatchesMessage = document.querySelector(".slider-special__message");
         breakpoint = window.matchMedia(breakpoint);
         const enableSwiper = function(className, settings) {
-            swiper = new swiper_core_Swiper(className, settings);
+            if (!swiper) swiper = new swiper_core_Swiper(className, settings);
         };
         const checker = function() {
-            if (breakpoint.matches) enableSwiper(swiperClass, swiperSettings); else if (swiper) swiper.destroy(true, true);
+            if (breakpoint.matches) enableSwiper(swiperClass, swiperSettings); else if (swiper) {
+                swiper.destroy(true, true);
+                swiper = null;
+            }
         };
         breakpoint.addEventListener("change", checker);
         checker();
         function filterSlides(category) {
-            const slider = document.querySelector(".slider-special");
-            const noMatchesMessage = document.querySelector(".slider-special__message");
+            if (!swiper) return;
             slider.classList.add("loading");
             let isMatchFound = false;
             slides.forEach((slide => {
