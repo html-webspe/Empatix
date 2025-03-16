@@ -236,6 +236,7 @@
     function functions_menuClose() {
         bodyUnlock();
         document.documentElement.classList.remove("menu-open");
+        toggleHeaderButton();
     }
     function functions_FLS(message) {
         setTimeout((() => {
