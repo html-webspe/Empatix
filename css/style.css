@@ -1028,6 +1028,10 @@ body::after {
   border-radius: .9375rem;
   z-index: -1
 }
+.team-card__inner {
+  background-color: #fff;
+  border-radius: .9375rem
+}
 .team-card__img {
   width: 6rem;
   height: 6rem;
