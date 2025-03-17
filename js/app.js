@@ -4112,7 +4112,7 @@
     const tl_prices = gsap.timeline({
         scrollTrigger: {
             trigger: ".prices",
-            start: "center center",
+            start: "top 50%",
             toggleActions: "play none none none"
         }
     });
